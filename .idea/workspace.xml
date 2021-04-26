@@ -14,6 +14,9 @@
       <executable />
     </execution>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
@@ -121,8 +124,9 @@
   </component>
   <component name="ProjectId" id="1rTrasTlwGpTMqieBydm90BymJq" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../finance.lara.ua" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
@@ -155,6 +159,9 @@
       <updated>1619010986614</updated>
       <workItem from="1619010987879" duration="1109000" />
       <workItem from="1619024687068" duration="17846000" />
+      <workItem from="1619044079412" duration="744000" />
+      <workItem from="1619172653255" duration="3776000" />
+      <workItem from="1619423255417" duration="7755000" />
     </task>
     <servers />
   </component>

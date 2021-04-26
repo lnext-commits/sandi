@@ -15,18 +15,21 @@ class HomeController extends Controller
         $menu = [];
         $products = [];
         if (Category::count()){
+
             $mainCategories = Category::whereParentId('0')->get();
 
             foreach ($mainCategories as $mainCategory){
                 $childCategories  = Category::whereParentId($mainCategory->id)->get();
+
                 foreach ($childCategories as $childCategory){
                     $menu[$mainCategory->id][$childCategory->id] = Category::whereParentId($childCategory->id)->get()->toArray();
                 }
             }
-            $categoryAll = Category::get();
+            $categoryAll = Category::with('product')->get();
+
             foreach ($categoryAll as $item){
                 $names[$item->id] = $item->name_category;
-                $products[$item->id] = Product::whereCategoryId($item->id)->get()->toArray();
+                $products[$item->id] = $item->product()->get();
             }
         }
         return view('home', [
@@ -65,11 +68,4 @@ class HomeController extends Controller
         }
         return redirect(route('home'));
     }
-    public function clean ()
-    {
-        Product::truncate();
-        Category::truncate();
-        return redirect(route('home'));
-    }
-
 }

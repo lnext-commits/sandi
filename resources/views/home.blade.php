@@ -6,63 +6,66 @@
             @csrf
             <button class="btn btn-outline-success" type="submit">Создать данные</button>
         </form>
-        <form class="form-inline" action="{{route('clean')}}" method="post">
-            @csrf
-            <button class="btn btn-sm align-middle btn-outline-secondary" type="submit">Очистить данные</button>
-        </form>
     </nav>
-    <div class="accordion" id="accordionExample">
+    <div class="container" >
         @foreach($menu as $id => $m)
-            <div class="container">
-                <div class="row">
-            <div class="col-sm">
-                <div class="btn-group dropright" style="margin: 5px;">
-                    <div id="heading{{$id}}">
-                        <h5 class="mb-0">
-                            <button class="btn btn-light collapsed" type="button"
-                                    data-toggle="collapse"
-                                    data-target="#menu{{$id}}" aria-expanded="false"
-                                    aria-controls="{{$id}}"
-                                    id="button{{$id}}"
-                            >{{$names[$id]}}</button>
-                        </h5>
+            <div  class="alert bg-primary cur menu0" onclick="viewBox({{$id}})">
+               {{$names[$id]}}
+            </div>
+            <div class="box{{$id}}" style="display: none;">
+                @foreach($m as $id2 => $c)
+                    <div  class="alert bg-success cur menu1" onclick="viewBox({{$id2}})">
+                        {{$names[$id2]}}
                     </div>
-                </div>
-                <div id="menu{{$id}}" class="collapse"
-                     aria-labelledby="heading{{$id}}"
-                     data-parent="#accordionExample">
-                    <div class="card-body">
-                        @foreach($m as $id2 => $c)
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <button type="button" class="btn btn-outline-primary">{{$names[$id2]}}</button>
-                                        <div  class="col-sm">
-                                            @foreach($c as $cc)
-                                                <div>
-                                                    <button type="button" class="btn btn-outline-secondary"> {{$cc['name_category']}}</button>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="col-sm">
-
-                                    </div>
-
-                                </div>
+                    <div class="box{{$id2}}" style="display: none;">
+                        @foreach($c as $cc)
+                            <div class="alert bg-warning menu2">
+                                 {{$cc['name_category']}}
                             </div>
+                                @foreach($products[$cc['id']] as $product)
+                                    <div  class="alert alert-warning cur product2" onclick="getProductJson({{$product['id']}})">
+                                       {{$product['name_product']}}
+                                    </div>
+                                <div class="boxProductTextarea{{$product['id']}} product2"></div>
+                                @endforeach
+                        @endforeach
+
+                        @foreach($products[$id2] as $product)
+                            <div  class="alert alert-success cur product1" onclick="getProductJson({{$product['id']}})">
+                               {{$product['name_product']}}
+                            </div>
+                            <div class="boxProductTextarea{{$product['id']}} product1"></div>
                         @endforeach
                     </div>
-                </div>
-            </div>
-            <div  class="col-sm">
-                @foreach($products[$id] as $product)
-                    <button type="button" class="btn btn-outline-info">{{$product['name_product']}}</button><br>
                 @endforeach
-            </div>
-            </div>
+
+                @foreach($products[$id] as $product)
+                    <div  class="alert alert-primary product0 cur" onclick="getProductJson({{$product['id']}})">
+                        {{$product['name_product']}}
+                    </div>
+                    <div class="boxProductTextarea{{$product['id']}} product0"></div>
+                @endforeach
             </div>
         @endforeach
     </div>
 @endsection
 
+<script>
+    function getProductJson(id) {
+        $.ajax({
+            type: "POST",
+            url: "/ajax/getJson",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id: id
+            }
+        })
+            .done(function (report) {
+                $('.boxProductTextarea' + id).html('<textarea class="form-control" style="margin-bottom: 25px;">'+report+'</textarea>');
+            });
+    }
+
+    function viewBox(id) {
+        $('.box'+id).show();
+    }
+</script>

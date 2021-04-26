@@ -18,6 +18,29 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <style>
+            .cur {
+                cursor: pointer
+            }
+            .menu0 {
+                margin-left: 50px;
+            }
+            .menu1 {
+                margin-left: 150px;
+            }
+            .menu2 {
+                margin-left: 250px;
+            }
+            .product0 {
+                margin-left: 75px;
+            }
+            .product1 {
+                margin-left: 175px;
+            }
+            .product2 {
+                margin-left: 275px;
+            }
+        </style>
     </head>
     <body>
     @yield('content')
